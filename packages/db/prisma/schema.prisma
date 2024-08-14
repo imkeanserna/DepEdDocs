@@ -26,13 +26,40 @@ model User {
 }
 
 model Record {
-  id         String @id @default(cuid())
-  firstName  String
-  lastName   String
-  middleName String
-  itemNumber String
-  Rank       String
+  id                   String              @id @default(cuid())
+  firstName            String
+  lastName             String
+  middleName           String
+  nameExtension        String              @default("N/A")
+  dateIssued           DateTime
+  positionTitle        String
+  itemNo               String
+  salary               Float
+  natureOfApp          NatureOfAppointment
+  periodOfEmployment   String              @default("N/A")
+  employmentStat       EmploymentStatus
+  dateOfPublication    DateTime
+  model                String              @default("N/A")
+  validated            String              @default("N/A")
+  dateOfAction         DateTime
+  dateOfRelease        DateTime
+  agencyReceivingOffer String              @default("N/A")
 
   Encoder   User?   @relation(fields: [encoderId], references: [id])
   encoderId String?
+}
+
+enum NatureOfAppointment {
+  PROMOTION
+  DEMOTION
+  ORIGINAL
+  REEMPLOYMENT
+  RECLASSIFICATION
+  TRANSFER
+}
+
+enum EmploymentStatus {
+  PERMANENT
+  PROVISIONAL
+  SUBSTITUTE
 }
