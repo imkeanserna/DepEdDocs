@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@repo/db/src/index";
+import db from "@repo/db/client";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
@@ -8,9 +8,10 @@ export async function POST(req: NextRequest) {
   try {
     const result = await db.user.create({
       data: {
-        id: "1",
         name: "asdasd",
         email: "test@gmail.com",
+        password: "test",
+        isAdmin: true,
       },
     });
     console.log(result);

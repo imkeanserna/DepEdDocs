@@ -22,31 +22,32 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  records Record[]
+  // records Record[]
 }
 
 model Record {
   id                   String              @id @default(cuid())
   firstName            String
   lastName             String
-  middleName           String
-  nameExtension        String              @default("N/A")
-  dateIssued           DateTime
+  middleName           String?
+  nameExtension        String?             @default("N/A")
+  dateIssued           String
   positionTitle        String
   itemNo               String
+  payGrade             Int
   salary               Float
-  natureOfApp          NatureOfAppointment
-  periodOfEmployment   String              @default("N/A")
-  employmentStat       EmploymentStatus
-  dateOfPublication    DateTime
-  model                String              @default("N/A")
-  validated            String              @default("N/A")
-  dateOfAction         DateTime
-  dateOfRelease        DateTime
-  agencyReceivingOffer String              @default("N/A")
+  natureOfAppointment  NatureOfAppointment
+  periodOfEmployment   String?             @default("N/A")
+  employmentStatus     EmploymentStatus
+  dateOfPublication    String
+  mode                 String              @default("N/A")
+  validated            String?             @default("N/A")
+  dateOfAction         String?
+  dateOfRelease        String?
+  agencyReceivingOffer String?             @default("N/A")
 
-  Encoder   User?   @relation(fields: [encoderId], references: [id])
-  encoderId String?
+  // Encoder   User?   @relation(fields: [encoderId], references: [id])
+  // encoderId String?
 }
 
 enum NatureOfAppointment {
