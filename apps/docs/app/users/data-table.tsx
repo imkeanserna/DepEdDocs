@@ -25,13 +25,22 @@ import {
 
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
+import { CreateTaskSchema } from "../_lib/validations";
+import { AddingTaskSchema } from "./create-task-dialog";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  onCreate: (newRecord: AddingTaskSchema) => Promise<void>;
 }
 
-export default function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export default function DataTable<TData, TValue>(
+  {
+    columns,
+    data,
+    onCreate
+  }: DataTableProps<TData, TValue>
+) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
     location: false,
@@ -59,7 +68,7 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} onCreate={onCreate} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -81,11 +90,23 @@ export default function DataTable<TData, TValue>({ columns, data }: DataTablePro
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
+                  {row.getVisibleCells().map((cell) => {
+                    const cellValue = cell.getValue();
+
+                    // Format the salary if it is a number
+                    const formattedValue =
+                      cell.column.id === "salary" && typeof cellValue === "number"
+                        ? cellValue.toLocaleString("en-US")
+                        : cellValue;
+
+                    return (
+                      <TableCell key={cell.id}>
+                        {cell.column.id === "salary"
+                          ? formattedValue as React.ReactNode // Render formatted salary
+                          : flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               ))
             ) : (

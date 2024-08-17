@@ -6,13 +6,14 @@ import DataTable from "../users/data-table";
 import { users } from "../users/users";
 import { useRouter } from "next/router";
 import React from "react";
-import TestTable from "../users/test-table";
+import { Skeleton } from "@repo/ui/components/ui/skeleton";
+import { DataTableSkeleton } from "../users/data-table-skeleton";
+import ClientTable from "../users/test-table";
 
 export default async function Home() {
   // // This is where you would fetch external data:
-  const exampleExternalData: User[] = await getChunkedRecords();
+  // const exampleExternalData: User[] = await getChunkedRecords();
 
-  console.log(exampleExternalData);
   // // In Our example we use local data
   //
   // // put table skeleton here
@@ -35,9 +36,6 @@ export default async function Home() {
   // }, []);
 
   return (
-    <div className="container p-2">
-      {/* <DataTable data={exampleExternalData} columns={columns} /> */}
-      <TestTable externalData={exampleExternalData} />
-    </div>
+    <ClientTable />
   );
 }

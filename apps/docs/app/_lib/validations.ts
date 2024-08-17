@@ -22,18 +22,18 @@ export type GetTasksSchema = z.infer<typeof getTasksSchema>;
 // export const PriorityEnum = z.enum(["low", "medium", "high"]);
 
 export const NatureOfAppointmentEnum = z.enum([
-  "promotion",
-  "demotion",
-  "original",
-  "reemployment",
-  "reclassification",
-  "transfer"
+  "PROMOTION",
+  "DEMOTION",
+  "ORIGINAL",
+  "REEMPLOYMENT",
+  "RECLASIFICATION",
+  "TRANSFER",
 ])
 
 export const EmploymentStatusEnum = z.enum([
-  "permanent",
-  "provisional",
-  "substitute"
+  "PERMANENT",
+  "PROVISIONAL",
+  "SUBSTITUTE"
 ])
 
 export const Mode = z.enum(["CSC JOB PORTAL", "N/A"]);

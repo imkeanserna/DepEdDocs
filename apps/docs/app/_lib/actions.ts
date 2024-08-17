@@ -1,55 +1,62 @@
 "use server";
 
 import db from "@repo/db/client";
-import { CreateTaskSchema } from "./validations";
+import { CreateTaskSchema, UpdateTaskSchema } from "./validations";
+import { AddingTaskSchema } from "../users/create-task-dialog";
 
-function convertToISO(dateStr: string) {
-  const [month, day, year] = dateStr.split('/').map(Number);
-  if (!month || !day || !year) {
-    return;
-  }
-
-  const date = new Date(year, month - 1, day);
-  return date.toISOString().split('T')[0];
+function capitalizeFirstLetter(string: string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export async function createRecords(input: any) {
   try {
-    const record = await db.record.create({
+    const record: AddingTaskSchema | any = await db.record.create({
       data: {
-        firstName: input.firstName,
-        lastName: input.lastName,
-        middleName: input.middleName,
-        nameExtension: input.nameExtension,
+        firstName: capitalizeFirstLetter(input.firstName),
+        lastName: capitalizeFirstLetter(input.lastName),
+        middleName: capitalizeFirstLetter(input.middleName),
+        nameExtension: input.nameExtension || "N/A",
         dateIssued: input.dateIssued,
-        positionTitle: input.positionTitle,
-        itemNo: input.itemNo,
+        positionTitle: capitalizeFirstLetter(input.positionTitle),
+        itemNo: input.itemNo.toUpperCase(),
         payGrade: input.payGrade,
         salary: input.salary,
         employmentStatus: input.employmentStatus.toUpperCase(),
-        periodOfEmployment: input.periodOfEmployment,
+        periodOfEmployment: input.periodOfEmployment || "N/A",
         natureOfAppointment: input.natureOfAppointment.toUpperCase(),
         dateOfPublication: input.dateOfPublication,
-        mode: input.mode,
-        validated: input.validated,
-        dateOfAction: input.dateOfAction || "",
-        dateOfRelease: input.dateOfRelease || "",
-        agencyReceivingOffer: input.agencyReceivingOffer,
+        mode: input.mode || "N/A",
+        validated: input.validated || "N/A",
+        dateOfAction: input.dateOfAction,
+        dateOfRelease: input.dateOfRelease,
+        agencyReceivingOffer: input.agencyReceivingOffer || "N/A",
       }
     });
-    console.log(record)
     return record;
   } catch (error) {
-    console.log(error)
+    return null;
   }
 }
 
 export async function getChunkedRecords() {
   try {
-    const records: any = await db.record.findMany({});
-    return records;
+    const records: any = await db.record.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    return records || [];
+  } catch (error) {
+    return null;
+  }
+}
+
+
+export async function updateRecord(input: UpdateTaskSchema & { id: string }) {
+  try {
+    console.log(input)
   } catch (error) {
     console.log(error)
-    return null;
   }
 }

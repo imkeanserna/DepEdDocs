@@ -34,7 +34,13 @@ import { createTaskSchema, type CreateTaskSchema } from "../_lib/validations"
 import { CreateTaskForm } from "./create-task-form"
 import { createRecords } from "../_lib/actions"
 
-export function CreateTaskDialog({ onCreate }: { onCreate: (newRecord: any) => void }) {
+export type AddingTaskSchema = CreateTaskSchema & {
+  id: string,
+  createdAt: Date,
+  updatedAt: Date
+}
+
+export function CreateTaskDialog({ onCreate }: { onCreate: (newRecord: AddingTaskSchema) => Promise<void> }) {
   const [open, setOpen] = React.useState(false)
   const [isCreatePending, startCreateTransition] = React.useTransition()
   const isDesktop = useMediaQuery("(min-width: 640px)")
@@ -45,12 +51,6 @@ export function CreateTaskDialog({ onCreate }: { onCreate: (newRecord: any) => v
 
   function onSubmit(input: CreateTaskSchema) {
     startCreateTransition(async () => {
-      // const { error } = await createRecords(input)
-      //
-      // if (error) {
-      //   toast.error(error)
-      //   return
-      // }
       const convertedInput = {
         ...input,
         employmentStatus: input.employmentStatus.toUpperCase(),
@@ -59,12 +59,13 @@ export function CreateTaskDialog({ onCreate }: { onCreate: (newRecord: any) => v
         payGrade: Number(input.payGrade)
       }
 
-      console.log("sdadasdasd")
-      const newRecord = await createRecords(convertedInput)
+      const newRecord: AddingTaskSchema = await createRecords(convertedInput)
 
-
+      if (newRecord === null) {
+        toast.error("Error creating record")
+        return;
+      }
       onCreate(newRecord);
-
 
       form.reset()
       setOpen(false)

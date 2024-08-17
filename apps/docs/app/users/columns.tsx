@@ -129,7 +129,7 @@ export const columns: ColumnDef<User>[] = [
     header: ({ column }) => <DataTableColumnHeader column={column} title={"Pay Grade"} />,
   },
   {
-    accessorKey: "salaryRate",
+    accessorKey: "salary",
     header: ({ column }) => <DataTableColumnHeader column={column} title={"Salary/Rate"} />,
   },
   {

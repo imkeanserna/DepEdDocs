@@ -9,12 +9,16 @@ import { usersStatus } from "./definitions";
 
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
 import { DataTableViewOptions } from "./data-table-view-options";
+import { AddingTaskSchema, CreateTaskDialog } from "./create-task-dialog";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
+  onCreate: (newRecord: AddingTaskSchema) => Promise<void>;
 }
 
-export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>(
+  { table, onCreate }: DataTableToolbarProps<TData>
+) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
@@ -45,7 +49,10 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
           </Button>
         )}
       </div>
-      <DataTableViewOptions table={table} />
+      <div className="flex gap-3">
+        <CreateTaskDialog onCreate={onCreate} />
+        <DataTableViewOptions table={table} />
+      </div>
     </div>
   );
 }

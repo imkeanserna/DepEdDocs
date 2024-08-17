@@ -45,6 +45,8 @@ model Record {
   dateOfAction         String?
   dateOfRelease        String?
   agencyReceivingOffer String?             @default("N/A")
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
 
   // Encoder   User?   @relation(fields: [encoderId], references: [id])
   // encoderId String?
