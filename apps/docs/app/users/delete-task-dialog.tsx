@@ -25,12 +25,12 @@ import { Icons } from "~/components/icons";
 import React from "react";
 import { useMediaQuery } from "../../hooks/use-media-query";
 import { toast } from "sonner";
-import { AddingTaskSchema } from "./create-task-dialog";
 import { deleteRecord } from "../_lib/actions";
+import { Record } from "../../types/index";
 
 interface DeleteTasksDialogProps
   extends React.ComponentPropsWithoutRef<typeof Dialog> {
-  record: AddingTaskSchema | any
+  record: Record | any
   showTrigger?: boolean
   onSuccess?: () => void
 }

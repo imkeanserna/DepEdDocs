@@ -4,6 +4,7 @@ import { cn } from "@repo/ui/lib/utils";
 import { useStore } from "../../hooks/use-store";
 import { Sidebar } from "./sidebar";
 import { useSidebarToggle } from "../../hooks/use-sidebar-toggle";
+import { Toaster } from "sonner";
 
 export default function AdminPanelLayout({
   children
@@ -24,6 +25,7 @@ export default function AdminPanelLayout({
         )}
       >
         {children}
+        <Toaster />
       </main>
     </>
   );

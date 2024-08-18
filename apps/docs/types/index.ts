@@ -1,3 +1,5 @@
+import { CreateTaskSchema } from "~/app/_lib/validations";
+
 export type User = {
   id: string,
   lastName: string,
@@ -19,3 +21,9 @@ export type User = {
   dateOfRelease: string,
   agencyReceivingOffer: string
 };
+
+export type Record = CreateTaskSchema & {
+  id: string,
+  createdAt: Date,
+  updatedAt: Date
+}

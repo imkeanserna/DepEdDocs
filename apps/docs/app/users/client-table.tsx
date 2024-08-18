@@ -1,15 +1,12 @@
 "use client";
 
-import { User } from "~/types";
 import { getChunkedRecords } from "../_lib/actions";
 import { columns } from "./columns";
-// import DataTable from "../users/data-table";
-import React, { lazy } from "react";
-import { AddingTaskSchema, CreateTaskDialog } from "./create-task-dialog";
+import React from "react";
+import { Record } from "../../types/index";
 import { DataTableSkeleton } from "./data-table-skeleton";
 import DataTable from "./data-table";
 import { toast } from "sonner";
-import { CreateTaskSchema } from "../_lib/validations";
 
 export default function ClientTable() {
   const [loading, setLoading] = React.useState(true);
@@ -33,15 +30,11 @@ export default function ClientTable() {
     fetchData();
   }, []);
 
-  const addRecord = async (newRecord: AddingTaskSchema) => {
+  const addRecord = async (newRecord: Record) => {
     setData((prevRecords) => [newRecord, ...prevRecords]);
   };
 
   return (
-    // {/* <div className="container p-2"> */}
-    // {/*   {/* <CreateTaskDialog onCreate={addRecord}></CreateTaskDialog> */} */}
-    // {/*   <DataTable data={data} columns={columns} onCreate={addRecord} /> */}
-    // {/* </div> */}
     <div className="container p-2">
       {loading ? (
         <DataTableSkeleton

@@ -25,13 +25,12 @@ import {
 
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
-import { CreateTaskSchema } from "../_lib/validations";
-import { AddingTaskSchema } from "./create-task-dialog";
+import { Record } from "../../types/index";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  onCreate: (newRecord: AddingTaskSchema) => Promise<void>;
+  onCreate: (newRecord: Record) => Promise<void>;
 }
 
 export default function DataTable<TData, TValue>(

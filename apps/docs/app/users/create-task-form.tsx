@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-// import { tasks } from "@/db/schema"
 import { type UseFormReturn } from "react-hook-form"
 
 import {
@@ -20,10 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@repo/ui/components/ui/select"
-import { Textarea } from "@repo/ui/components/ui/textarea"
+
 import { CreateTaskSchema, EmploymentStatusEnum, Mode, NatureOfAppointmentEnum, } from "../_lib/validations"
 import { Input } from "@repo/ui/components/ui/input"
-// import { type CreateTaskSchema } from "@/app/_lib/validations"
 
 interface CreateTaskFormProps
   extends Omit<React.ComponentPropsWithRef<"form">, "onSubmit"> {

@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { PlusIcon, ReloadIcon } from "@radix-ui/react-icons"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
-
 import { useMediaQuery } from "../../hooks/use-media-query"
 import { Button } from "@repo/ui/components/ui/button"
 import {
@@ -29,18 +28,12 @@ import {
   DrawerTrigger,
 } from "@repo/ui/components/ui/drawer"
 
-// import { createTask } from "../_lib/actions"
 import { createTaskSchema, type CreateTaskSchema } from "../_lib/validations"
 import { CreateTaskForm } from "./create-task-form"
 import { createRecords } from "../_lib/actions"
+import { Record } from "../../types/index"
 
-export type AddingTaskSchema = CreateTaskSchema & {
-  id: string,
-  createdAt: Date,
-  updatedAt: Date
-}
-
-export function CreateTaskDialog({ onCreate }: { onCreate: (newRecord: AddingTaskSchema) => Promise<void> }) {
+export function CreateTaskDialog({ onCreate }: { onCreate: (newRecord: Record) => Promise<void> }) {
   const [open, setOpen] = React.useState(false)
   const [isCreatePending, startCreateTransition] = React.useTransition()
   const isDesktop = useMediaQuery("(min-width: 640px)")
@@ -59,7 +52,7 @@ export function CreateTaskDialog({ onCreate }: { onCreate: (newRecord: AddingTas
         payGrade: Number(input.payGrade)
       }
 
-      const newRecord: AddingTaskSchema = await createRecords(convertedInput)
+      const newRecord: Record = await createRecords(convertedInput)
 
       if (newRecord === null) {
         toast.error("Error creating record")

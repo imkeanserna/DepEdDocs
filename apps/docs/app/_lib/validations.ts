@@ -16,11 +16,6 @@ export const getTasksSchema = searchParamsSchema;
 
 export type GetTasksSchema = z.infer<typeof getTasksSchema>;
 
-// Define the enums directly in the Zod schema
-// export const LabelEnum = z.enum(["bug", "feature", "enhancement"]);
-// export const StatusEnum = z.enum(["todo", "in_progress", "done"]);
-// export const PriorityEnum = z.enum(["low", "medium", "high"]);
-
 export const NatureOfAppointmentEnum = z.enum([
   "PROMOTION",
   "DEMOTION",
@@ -37,14 +32,6 @@ export const EmploymentStatusEnum = z.enum([
 ])
 
 export const Mode = z.enum(["CSC JOB PORTAL", "N/A"]);
-
-// export const createTaskSchema = z.object({
-//   title: z.string(),
-//   label: LabelEnum,
-//   status: StatusEnum,
-//   priority: PriorityEnum,
-// });
-//
 
 export const createTaskSchema = z.object({
   firstName: z.string(),
@@ -68,14 +55,6 @@ export const createTaskSchema = z.object({
 });
 
 export type CreateTaskSchema = z.infer<typeof createTaskSchema>;
-
-// export const updateTaskSchema = z.object({
-//   title: z.string().optional(),
-//   label: LabelEnum.optional(),
-//   status: StatusEnum.optional(),
-//   priority: PriorityEnum.optional(),
-// });
-
 
 export const updateTaskSchema = z.object({
   firstName: z.string().optional(),

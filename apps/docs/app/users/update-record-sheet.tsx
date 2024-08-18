@@ -1,7 +1,6 @@
 "use client"
 
 import * as React from "react"
-// import { tasks, type Task } from "@/db/schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
@@ -31,18 +30,15 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@repo/ui/components/ui/sheet"
-import { Textarea } from "@repo/ui/components/ui/textarea"
 import { Icons } from "../../components/icons"
-
-// import { updateTask } from "../_lib/actions"
 import { EmploymentStatusEnum, Mode, NatureOfAppointmentEnum, updateTaskSchema, type UpdateTaskSchema } from "../_lib/validations"
 import { updateRecord } from "../_lib/actions"
-import { AddingTaskSchema } from "./create-task-dialog"
+import { Record } from "../../types/index"
 import { Input } from "@repo/ui/components/ui/input"
 
 interface UpdateRecordSheetProps
   extends React.ComponentPropsWithRef<typeof Sheet> {
-  record: AddingTaskSchema | any
+  record: Record | any
 }
 
 export function UpdateTaskSheet({ record, ...props }: UpdateRecordSheetProps) {
@@ -480,7 +476,7 @@ export function UpdateTaskSheet({ record, ...props }: UpdateRecordSheetProps) {
                 </FormItem>
               )}
             />
-            <SheetFooter className="gap-2 pt-2 sm:space-x-0 sticky bottom-[-20px] right-0 w-full bg-white border-t border-t-gray-200">
+            <SheetFooter className="gap-2 pt-2 sm:space-x-0 sticky bottom-[-20px] right-0 w-full border-t bg-background">
               <SheetClose asChild>
                 <Button type="button" variant="outline">
                   Cancel

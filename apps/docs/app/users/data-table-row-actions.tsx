@@ -34,9 +34,6 @@ interface DataTableRowActionsProps<TData> {
 }
 
 export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
-  // const user = UserSchema.parse(row.original);
-  // console.log(user.id); // Note: use the id for any action (example: delete, view, edit)
-  const [isUpdatePending, startUpdateTransition] = React.useTransition()
   const [showUpdateTaskSheet, setShowUpdateTaskSheet] = React.useState(false)
   const [showDeleteTaskDialog, setShowDeleteTaskDialog] = React.useState(false)
 
@@ -62,14 +59,12 @@ export function DataTableRowActions<TData>({ row }: DataTableRowActionsProps<TDa
             </Link>
           </Button>
         </DropdownMenuItem>
-
         <DropdownMenuItem onSelect={() => setShowUpdateTaskSheet(true)}>
           <Button variant={"ghost"} size={"sm"} className={"justify-start w-full"}>
             <Pencil className="h-4 w-4 text-green-500" />
             {<span className="ml-2">{"Update"}</span>}
           </Button>
         </DropdownMenuItem>
-
         <DeleteTasksDialog
           open={showDeleteTaskDialog}
           onOpenChange={setShowDeleteTaskDialog}

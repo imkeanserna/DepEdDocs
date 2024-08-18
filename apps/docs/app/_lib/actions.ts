@@ -2,7 +2,7 @@
 
 import db from "@repo/db/client";
 import { UpdateTaskSchema } from "./validations";
-import { AddingTaskSchema } from "../users/create-task-dialog";
+import { Record } from "../../types/index";
 
 function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -10,7 +10,7 @@ function capitalizeFirstLetter(string: string) {
 
 export async function createRecords(input: any) {
   try {
-    const record: AddingTaskSchema | any = await db.record.create({
+    const record: Record | any = await db.record.create({
       data: {
         firstName: capitalizeFirstLetter(input.firstName),
         lastName: capitalizeFirstLetter(input.lastName),
