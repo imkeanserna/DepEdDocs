@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { Skeleton } from "@repo/ui/components/ui/skeleton";
 import { DataTableSkeleton } from "../users/data-table-skeleton";
-import ClientTable from "../users/test-table";
+import ClientTable from "../users/client-table";
 
 export default async function Home() {
   // // This is where you would fetch external data:

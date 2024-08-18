@@ -6,6 +6,8 @@ import { DataTableColumnHeader } from "./data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { usersRole, usersStatus } from "./definitions";
 import { User } from "~/types";
+import React from "react";
+import { UpdateTaskSheet } from "./update-record-sheet";
 
 // export const columns: ColumnDef<User>[] = [
 //   {
@@ -155,61 +157,27 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "validated",
     header: ({ column }) => <DataTableColumnHeader column={column} title={"Validated"} />,
-    cell: ({ row }) => {
-      const validated = usersRole.find((validated) => validated.value === row.getValue("validated"));
-
-      if (!validated) {
-        // If a value is not what you expect or does not exist you can return null.
-        return null;
-      }
-
-      return <span>{validated.label}</span>;
-    },
   },
   {
     accessorKey: "dateOfAction",
     header: ({ column }) => <DataTableColumnHeader column={column} title={"Date of Action"} />,
-    cell: ({ row }) => {
-      const dateOfAction = usersRole.find((dateOfAction) => dateOfAction.value === row.getValue("dateOfAction"));
-
-      if (!dateOfAction) {
-        // If a value is not what you expect or does not exist you can return null.
-        return null;
-      }
-
-      return <span>{dateOfAction.label}</span>;
-    },
   },
   {
     accessorKey: "dateOfRelease",
     header: ({ column }) => <DataTableColumnHeader column={column} title={"Date of Release"} />,
-    cell: ({ row }) => {
-      const dateOfRelease = usersRole.find((dateOfRelease) => dateOfRelease.value === row.getValue("dateOfRelease"));
-
-      if (!dateOfRelease) {
-        // If a value is not what you expect or does not exist you can return null.
-        return null;
-      }
-
-      return <span>{dateOfRelease.label}</span>;
-    },
   },
   {
     accessorKey: "agencyReceivingOffer",
     header: ({ column }) => <DataTableColumnHeader column={column} title={"Agency Receiving Officer"} />,
-    cell: ({ row }) => {
-      const agencyReceivingOffer = usersRole.find((agencyReceivingOffer) => agencyReceivingOffer.value === row.getValue("agencyReceivingOffer"));
-
-      if (!agencyReceivingOffer) {
-        // If a value is not what you expect or does not exist you can return null.
-        return null;
-      }
-
-      return <span>{agencyReceivingOffer.label}</span>;
-    },
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => {
+      return (
+        <>
+          <DataTableRowActions row={row} />
+        </>
+      )
+    },
   },
 ];

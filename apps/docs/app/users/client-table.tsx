@@ -2,7 +2,7 @@
 
 import { User } from "~/types";
 import { getChunkedRecords } from "../_lib/actions";
-import { columns } from "../users/columns";
+import { columns } from "./columns";
 // import DataTable from "../users/data-table";
 import React, { lazy } from "react";
 import { AddingTaskSchema, CreateTaskDialog } from "./create-task-dialog";

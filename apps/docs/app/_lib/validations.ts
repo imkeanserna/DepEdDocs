@@ -89,7 +89,7 @@ export const updateTaskSchema = z.object({
   salary: z.coerce.number().positive(),
   employmentStatus: EmploymentStatusEnum.optional(),
   periodOfEmployment: z.string().optional(),
-  natureOfAppointment: NatureOfAppointmentEnum.optional(),
+  natureOfAppointment: NatureOfAppointmentEnum,
   dateOfPublication: z.string().optional(),
   mode: Mode.optional(),
   validated: z.string().optional(),

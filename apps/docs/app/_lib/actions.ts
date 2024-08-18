@@ -1,7 +1,7 @@
 "use server";
 
 import db from "@repo/db/client";
-import { CreateTaskSchema, UpdateTaskSchema } from "./validations";
+import { UpdateTaskSchema } from "./validations";
 import { AddingTaskSchema } from "../users/create-task-dialog";
 
 function capitalizeFirstLetter(string: string) {
@@ -45,7 +45,6 @@ export async function getChunkedRecords() {
         createdAt: "desc",
       },
     });
-    await new Promise((resolve) => setTimeout(resolve, 5000));
     return records || [];
   } catch (error) {
     return null;
@@ -55,8 +54,47 @@ export async function getChunkedRecords() {
 
 export async function updateRecord(input: UpdateTaskSchema & { id: string }) {
   try {
-    console.log(input)
+    const natureOfAppointment: any = input.natureOfAppointment || "PROMOTION";
+    const record = await db.record.update({
+      where: {
+        id: input.id
+      },
+      data: {
+        firstName: capitalizeFirstLetter(input.firstName || ""),
+        lastName: capitalizeFirstLetter(input.lastName || ""),
+        middleName: capitalizeFirstLetter(input.middleName || ""),
+        nameExtension: input.nameExtension || "N/A",
+        dateIssued: input.dateIssued,
+        positionTitle: capitalizeFirstLetter(input.positionTitle || ""),
+        itemNo: input.itemNo?.toUpperCase() || "",
+        payGrade: input.payGrade,
+        salary: input.salary,
+        employmentStatus: input.employmentStatus,
+        periodOfEmployment: input.periodOfEmployment || "N/A",
+        natureOfAppointment: natureOfAppointment,
+        dateOfPublication: input.dateOfPublication,
+        mode: input.mode || "N/A",
+        validated: input.validated || "N/A",
+        dateOfAction: input.dateOfAction,
+        dateOfRelease: input.dateOfRelease,
+        agencyReceivingOffer: input.agencyReceivingOffer || "N/A",
+      }
+    });
+    return record;
   } catch (error) {
-    console.log(error)
+    return null;
+  }
+}
+
+export async function deleteRecord(id: string) {
+  try {
+    const result = await db.record.delete({
+      where: {
+        id
+      }
+    });
+    return result;
+  } catch (error) {
+    return null;
   }
 }
