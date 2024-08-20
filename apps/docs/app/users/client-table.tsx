@@ -7,8 +7,17 @@ import { Record } from "../../types/index";
 import { DataTableSkeleton } from "./data-table-skeleton";
 import DataTable from "./data-table";
 import { toast } from "sonner";
+import { useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation';
 
 export default function ClientTable() {
+  const { isLoaded, isSignedIn } = useUser()
+  const router = useRouter();
+
+  if (!isLoaded || !isSignedIn) {
+    router.push("/sign-in")
+  }
+
   const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState<any[]>([]);
 

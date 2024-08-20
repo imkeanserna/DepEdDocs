@@ -15,6 +15,7 @@ import {
   TooltipContent,
   TooltipProvider
 } from "@repo/ui/components/ui/tooltip";
+import { useClerk } from "@clerk/nextjs";
 
 interface MenuProps {
   isOpen: boolean | undefined;
@@ -23,6 +24,7 @@ interface MenuProps {
 export function Menu({ isOpen }: MenuProps) {
   const pathname = usePathname();
   const menuList = getMenuList(pathname);
+  const { signOut } = useClerk()
 
   return (
     <ScrollArea className="[&>div>div[style]]:!block">
@@ -108,7 +110,7 @@ export function Menu({ isOpen }: MenuProps) {
               <Tooltip delayDuration={100}>
                 <TooltipTrigger asChild>
                   <Button
-                    onClick={() => { }}
+                    onClick={() => { signOut({ redirectUrl: "/sign-in" }) }}
                     variant="outline"
                     className="w-full justify-center h-10 mt-5"
                   >

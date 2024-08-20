@@ -40,7 +40,7 @@ export function Sidebar() {
                   : "translate-x-0 opacity-100"
               )}
             >
-              Brand
+              <div className="font-black">Dep<span className="text-red-500">ED</span></div>
             </h1>
           </Link>
         </Button>

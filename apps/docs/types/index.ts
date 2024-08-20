@@ -1,26 +1,12 @@
 import { CreateTaskSchema } from "~/app/_lib/validations";
 
 export type User = {
-  id: string,
-  lastName: string,
+  clerkUserId: string,
+  email: string,
   firstName: string,
-  nameExtension: string,
-  middleName: string,
-  dateIssued: string,
-  positionTitle: string,
-  itemNo: string,
-  payGrade: string,
-  salaryRate: string,
-  employmentStatus: string,
-  periodOfEmployment: string,
-  natureOfAppointment: string,
-  dateOfPublication: string,
-  mode: string,
-  validated: string,
-  dateOfAction: string,
-  dateOfRelease: string,
-  agencyReceivingOffer: string
-};
+  lastName: string,
+  imageUrl?: string
+}
 
 export type Record = CreateTaskSchema & {
   id: string,
