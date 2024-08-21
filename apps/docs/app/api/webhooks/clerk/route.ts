@@ -55,7 +55,7 @@ export async function POST(req: Request) {
 
   // CREATE
   if (eventType === 'user.created') {
-    const { id, email_addresses, image_url, first_name, last_name, username } = evt.data;
+    const { id, email_addresses, image_url, first_name, last_name } = evt.data;
 
     if (!id || !email_addresses) {
       return new Response('Error occurred -- missing data', {

@@ -1,16 +1,5 @@
-import { useUser } from '@clerk/nextjs'
 import PlaceholderContent from "../../components/demo/placeholder-content";
 import { ContentLayout } from "../../components/admin-panel/content-layout";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator
-} from "@repo/ui/components/ui/breadcrumb";
-import { redirect } from "next/navigation";
-import { Button } from "@repo/ui/components/ui/button";
 
 export default function DashboardPage() {
   return (
