@@ -14,35 +14,40 @@ export default function ClientTable() {
   const { isLoaded, isSignedIn } = useUser()
   const router = useRouter();
 
-  if (!isLoaded || !isSignedIn) {
-    router.push("/sign-in")
-  }
+  React.useEffect(() => {
+    if (!isLoaded) return;
+    if (!isSignedIn) {
+      router.push("/sign-in");
+    }
+  }, [isLoaded, isSignedIn, router]);
 
   const [loading, setLoading] = React.useState(true);
   const [data, setData] = React.useState<any[]>([]);
 
   React.useEffect(() => {
-    async function fetchData() {
-      try {
-        const fetchRecords = await getChunkedRecords();
-        if (fetchRecords === null) {
+    if (isLoaded && isSignedIn) {
+      const fetchData = async () => {
+        try {
+          const fetchRecords = await getChunkedRecords();
+          setData(fetchRecords || []); // Default to empty array
+        } catch (error) {
           toast.error("Error fetching data, try again later");
+        } finally {
+          setLoading(false);
         }
-        setData(fetchRecords);
-      } catch (error) {
-        toast.error("Error fetching data, try again later");
-      } finally {
-        setLoading(false);
-      }
-    }
+      };
 
-    fetchData();
-  }, []);
+      fetchData();
+    }
+  }, [isLoaded, isSignedIn]);
 
   const addRecord = async (newRecord: Record) => {
     setData((prevRecords) => [newRecord, ...prevRecords]);
   };
 
+  if (!isLoaded || !isSignedIn) {
+    return <div>Loading...</div>; // Temporary loading state for redirection
+  }
   return (
     <div className="container p-2">
       {loading ? (

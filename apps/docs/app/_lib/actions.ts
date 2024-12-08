@@ -3,12 +3,19 @@
 import db from "@repo/db/client";
 import { UpdateTaskSchema } from "./validations";
 import { Record } from "../../types/index";
+import { auth } from "@clerk/nextjs/server";
 
 function capitalizeFirstLetter(string: string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export async function createRecords(input: any) {
+  const { userId } = auth();
+
+  if (!userId) {
+    return { error: "Unauthorized" };
+  }
+
   try {
     const record: Record | any = await db.record.create({
       data: {
