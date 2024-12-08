@@ -20,11 +20,10 @@ model User {
   lastName    String
   clerkUserId String   @unique
   imageUrl    String?
-  // isAdmin     Boolean  @default(false)
+  isAdmin     Boolean  @default(false)
+  allowedUser Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-
-  // records Record[]
 }
 
 model Record {
@@ -49,9 +48,6 @@ model Record {
   agencyReceivingOffer String?             @default("N/A")
   createdAt            DateTime            @default(now())
   updatedAt            DateTime            @updatedAt
-
-  // Encoder   User?   @relation(fields: [encoderId], references: [id])
-  // encoderId String?
 }
 
 enum NatureOfAppointment {
